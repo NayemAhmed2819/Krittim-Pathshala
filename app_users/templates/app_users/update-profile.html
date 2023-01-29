@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}Update Profile {% endblock %}
+
+{% block content %}
+
+<div class="container-fluid p-5">
+    <div class="row">
+
+        <div class="col-md-4">
+            <div class="card mb-3">
+                {% if profile.profile_pic %}
+                <img alt="{{ user.username }}" class="card-img-top" src="{{ profile.profile_pic.url }}">
+                {% else %}
+                <img alt="{{ user.username }}" class="card-img-top" src="{% static 'images/user-placeholder.png' %}">
+                {% endif %}
+                <div class="card-body">
+                    <h2 class="card-title">{{ user.username }}</h2>
+                </div>
+
+            
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <h3 class="m-5">Update Profile</h3>
+            <hr/>
+            <form method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              {{ form|crispy }}
+              <div class="row justify-content-center">
+              <div class="col-md-6">
+              <input type="submit" value="Update Profile" class="btn btn-primary btn-block">
+              </div>
+              </div>
+            </form>
+              
+
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}Profile {% endblock %}
+
+{% block content %}
+
+<div class="container p-5">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card mb-3">
+                {% if profile.profile_pic %}
+                <img alt="{{ user.username }}" class="card-img-top" src="{{ profile.profile_pic.url }}">
+                {% else %}
+                <img alt="{{ user.username }}" class="card-img-top" src="{% static 'images/user-placeholder.png' %}">
+                {% endif %}
+                <div class="card-body">
+                    <h2 class="card-title">{{ user.username }}</h2>
+                </div>
+
+                {% if request.user == user %}
+                <div class="card-footer">
+                    <a class="btn btn-primary btn-block" href="{% url 'user_profile_update' %}">
+                        <i class="fas fa-pencil-alt me-2"></i>Edit Profile
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class=" text-left mb-3">
+                <div class="card-header">
+                    <p class="h3 text-black">General Information</p>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12 ">
+                            <div class="card w-40">
+                                <div class="card-body">
+                                    <b>{{ profile.bio }}</b><br/>
+                                    Email: <a href="mailto:{{user.email}}">{{ user.email }}</a><br />
+                                    User Type: <b>{{ profile.user_type }}</b>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr />
+        </div>
+
+    </div>
+</div>
+
+
+{% endblock %}
